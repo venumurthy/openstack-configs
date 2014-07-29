@@ -1,0 +1,9 @@
+
+net-create public -- --router:external=True --provider:network_type vlan --provider:physical_network physnet1 --provider:segmentation_id 2
+  964  neutron subnet-create public --allocation-pool start=10.4.200.100,end=10.4.200.120 --gateway=10.4.200.79 --enable_dhcp=False 10.4.0.0/16
+  965  neutron router-create ext-to-int
+  966  neutron router-gateway-set 2fe3521d-fbcc-403d-865a-42316d145a9a 02788071-ba20-4865-ad94-c8fdb396d208
+  967  neutron net-create private --provider:network_type vlan --provider:physical_network physnet1 --provider:segmentation_id 3
+  968  neutron subnet-create  demo-net 10.5.5.0/24 --gateway 10.5.5.1
+  969  neutron subnet-create  private 10.5.5.0/24 --gateway 10.5.5.1
+  970  neutron router-interface-add 2fe3521d-fbcc-403d-865a-42316d145a9a 3881d17b-d702-4c58-9111-58d43792998b
